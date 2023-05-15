@@ -3,7 +3,7 @@ import Config
 # Configure your database
 config :ventas, Ventas.Repo,
   username: "postgres",
-  password: "postgres",
+  password: "admin",
   hostname: "localhost",
   database: "ventas_dev",
   stacktrace: true,
