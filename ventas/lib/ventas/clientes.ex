@@ -18,7 +18,7 @@ defmodule Ventas.Clientes do
 
   """
   def list_clientes do
-    Repo.all(Cliente) |> Repo.preload(:propietarios)
+    Repo.all(Cliente) |> Repo.preload(:vendedor)
   end
 
   @doc """
@@ -35,7 +35,7 @@ defmodule Ventas.Clientes do
       ** (Ecto.NoResultsError)
 
   """
-  def get_cliente!(id), do: Repo.get!(Cliente, id)
+  def get_cliente!(id), do: Repo.get!(Cliente, id) |> Repo.preload(:vendedor)
 
   @doc """
   Creates a cliente.
@@ -51,6 +51,7 @@ defmodule Ventas.Clientes do
   """
   def create_cliente(attrs \\ %{}) do
     %Cliente{}
+    |> Repo.preload(:vendedor)
     |> Cliente.changeset(attrs)
     |> Repo.insert()
   end
@@ -101,4 +102,9 @@ defmodule Ventas.Clientes do
   def change_cliente(%Cliente{} = cliente, attrs \\ %{}) do
     Cliente.changeset(cliente, attrs)
   end
+
+  def get_cliente_x_nombre(nombre_cliente) do
+     Repo.all(from cte in Cliente, where: cte.nombre == ^nombre_cliente) |> Repo.preload(:vendedor)
+  end
+
 end

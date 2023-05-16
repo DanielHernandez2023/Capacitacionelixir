@@ -25,6 +25,11 @@ defmodule VentasWeb.ClienteController do
     render(conn, :show, cliente: cliente)
   end
 
+  def get_client_by_name(conn, %{"name" => name}) do
+    clientes = Clientes.get_cliente_x_nombre(name)
+    render(conn, :index, clientes: clientes)
+  end
+
   def update(conn, %{"id" => id, "cliente" => cliente_params}) do
     cliente = Clientes.get_cliente!(id)
 
@@ -40,4 +45,7 @@ defmodule VentasWeb.ClienteController do
       send_resp(conn, :no_content, "")
     end
   end
+
+
+  #get_cliente_x_nombre
 end

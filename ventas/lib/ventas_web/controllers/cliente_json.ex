@@ -16,11 +16,16 @@ defmodule VentasWeb.ClienteJSON do
   end
 
   defp data(%Cliente{} = cliente) do
+
     %{
       id: cliente.id,
       nombre: cliente.nombre,
       ciuadad: cliente.ciuadad,
       direccion: cliente.direccion
     }
+  end
+
+  def get_by_name(%{cliente: cliente}) do
+    %{data: data(cliente)}
   end
 end

@@ -40,4 +40,9 @@ defmodule VentasWeb.VendedorController do
       send_resp(conn, :no_content, "")
     end
   end
+
+  def get_saleForce_by_Age(conn, %{"age" => age}) do
+    vendedores = Vendedores.get_saleForce_by_Age(age)
+    render(conn, :index, vendedores: vendedores)
+  end
 end

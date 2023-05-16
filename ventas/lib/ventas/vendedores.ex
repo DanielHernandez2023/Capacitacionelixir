@@ -18,7 +18,7 @@ defmodule Ventas.Vendedores do
 
   """
   def list_vendedores do
-    Repo.all(Vendedor) |> Repo.preload(:clientes)
+    Repo.all(Vendedor) |> Repo.preload(:cliente)
   end
 
   @doc """
@@ -35,7 +35,7 @@ defmodule Ventas.Vendedores do
       ** (Ecto.NoResultsError)
 
   """
-  def get_vendedor!(id), do: Repo.get!(Vendedor, id)
+  def get_vendedor!(id), do: Repo.get!(Vendedor, id) |> Repo.preload(:cliente)
 
   @doc """
   Creates a vendedor.
@@ -101,4 +101,14 @@ defmodule Ventas.Vendedores do
   def change_vendedor(%Vendedor{} = vendedor, attrs \\ %{}) do
     Vendedor.changeset(vendedor, attrs)
   end
+
+
+  def get_saleForce_by_Age(age) do
+    Repo.all(from v in Vendedor, where: v.edad == ^age) |> Repo.preload(:cliente)
+  end
 end
+
+
+
+
+###functions crear consultas base de datos.
